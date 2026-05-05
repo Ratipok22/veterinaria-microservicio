@@ -41,7 +41,7 @@ public class NotificacionesController {
         notificacionesService.eliminarNotificacion(id);
     }
 
-    @PutMapping("/notificaciones/{id}")
+    @PutMapping("/{id}")
     public Notificaciones actualizarNotificacion(@PathVariable Long id, @RequestBody Notificaciones notificacion) {
         return notificacionesService.actualizarNotificacion(id, notificacion);
     }

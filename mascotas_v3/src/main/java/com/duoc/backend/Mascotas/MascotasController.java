@@ -41,7 +41,7 @@ public class MascotasController {
         mascotasService.eliminarMascota(id);
     }
 
-    @PutMapping("/mascotas/{id}")
+    @PutMapping("/{id}")
     public Mascotas actualizarMascota(@PathVariable Long id, @RequestBody Mascotas mascota) {
         return mascotasService.actualizarMascota(id, mascota);
     }

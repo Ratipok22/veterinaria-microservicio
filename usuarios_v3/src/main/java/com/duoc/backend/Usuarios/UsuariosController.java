@@ -39,7 +39,7 @@ public class UsuariosController {
         usuariosRepository.eliminarUsuario(id);
     }
 
-    @PutMapping("/usuarios/{id}")
+    @PutMapping("/{id}")
     public Usuarios actualizarUsuario(@PathVariable Long id, @RequestBody Usuarios usuario) {
         return usuariosRepository.actualizarUsuario(id, usuario);
     }

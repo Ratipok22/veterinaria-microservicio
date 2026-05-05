@@ -1,0 +1,15 @@
+C:\Users\alexs\Desktop\Proyecto\Microservicio1\src\main\java\com\duoc\backend\BackendApplication.java
+C:\Users\alexs\Desktop\Proyecto\Microservicio1\src\main\java\com\duoc\backend\Constants.java
+C:\Users\alexs\Desktop\Proyecto\Microservicio1\src\main\java\com\duoc\backend\Difusion\Difusion.java
+C:\Users\alexs\Desktop\Proyecto\Microservicio1\src\main\java\com\duoc\backend\Difusion\DifusionController.java
+C:\Users\alexs\Desktop\Proyecto\Microservicio1\src\main\java\com\duoc\backend\Difusion\DifusionRepository.java
+C:\Users\alexs\Desktop\Proyecto\Microservicio1\src\main\java\com\duoc\backend\Difusion\DifusionService.java
+C:\Users\alexs\Desktop\Proyecto\Microservicio1\src\main\java\com\duoc\backend\Difusion\RestTemplateConfig.java
+C:\Users\alexs\Desktop\Proyecto\Microservicio1\src\main\java\com\duoc\backend\JWTAuthenticationConfig.java
+C:\Users\alexs\Desktop\Proyecto\Microservicio1\src\main\java\com\duoc\backend\JWTAuthorizationFilter.java
+C:\Users\alexs\Desktop\Proyecto\Microservicio1\src\main\java\com\duoc\backend\LoginController.java
+C:\Users\alexs\Desktop\Proyecto\Microservicio1\src\main\java\com\duoc\backend\MyUserDetailsService.java
+C:\Users\alexs\Desktop\Proyecto\Microservicio1\src\main\java\com\duoc\backend\SecuredController.java
+C:\Users\alexs\Desktop\Proyecto\Microservicio1\src\main\java\com\duoc\backend\User.java
+C:\Users\alexs\Desktop\Proyecto\Microservicio1\src\main\java\com\duoc\backend\UserRepository.java
+C:\Users\alexs\Desktop\Proyecto\Microservicio1\src\main\java\com\duoc\backend\WebSecurityConfig.java

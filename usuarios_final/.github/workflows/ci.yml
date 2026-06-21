@@ -3,7 +3,7 @@ name: CI ms-usuarios
 on:
   push:
     branches:
-      - main
+      - ms_usuarios
 
 jobs:
   build:

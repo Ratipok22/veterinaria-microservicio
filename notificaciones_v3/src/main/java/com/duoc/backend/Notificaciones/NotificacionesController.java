@@ -3,6 +3,8 @@ package com.duoc.backend.Notificaciones;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/notificaciones")
@@ -27,13 +31,17 @@ public class NotificacionesController {
     }
 
     @GetMapping("/{id}")
-    public Notificaciones obtenerNotificacionPorId(@PathVariable Long id) {
-        return notificacionesService.obtenerNotificacionPorId(id);
+    public ResponseEntity<Notificaciones> obtenerNotificacionPorId(@PathVariable Long id) {
+        Notificaciones notificaciones = notificacionesService.obtenerNotificacionPorId(id);
+        if (notificaciones == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(notificaciones);
     }
 
     @PostMapping
-    public Notificaciones guardarNotificacion(@RequestBody Notificaciones notificacion) {
-        return notificacionesService.guardarNotificacion(notificacion);
+    public ResponseEntity<Notificaciones> guardarUsuario(@Valid @RequestBody Notificaciones notificacion) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(notificacionesService.guardarNotificacion(notificacion));
     }
 
     @DeleteMapping("/{id}")
@@ -42,7 +50,7 @@ public class NotificacionesController {
     }
 
     @PutMapping("/{id}")
-    public Notificaciones actualizarNotificacion(@PathVariable Long id, @RequestBody Notificaciones notificacion) {
+    public Notificaciones actualizarNotificacion(@PathVariable Long id,@Valid @RequestBody Notificaciones notificacion) {
         return notificacionesService.actualizarNotificacion(id, notificacion);
     }
 }

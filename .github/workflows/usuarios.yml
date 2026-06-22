@@ -20,7 +20,9 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-
+      # Permiso de Maven
+      - name: Dar permisos Maven Wrapper
+        run: chmod +x mvnw
       # Compilar el proyecto (opcional)
       - name: Build with Maven
         run: mvn clean package -DskipTests

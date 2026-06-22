@@ -28,3 +28,15 @@ jobs:
 
       - name: Compilar proyecto
         run: ./mvnw clean package -DskipTests
+       
+      - name: Docker Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
+ 
+      - name: Build Image
+        run: docker build -t alexsander1234/ms-usuarios:latest .
+
+      - name: Push
+        run: docker push alexsander1234/ms-usuarios:latest

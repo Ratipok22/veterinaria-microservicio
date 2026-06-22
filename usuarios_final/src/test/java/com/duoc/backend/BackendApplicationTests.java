@@ -15,6 +15,8 @@ import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.duoc.backend.Usuarios.Usuarios;
+import com.duoc.backend.Usuarios.Usuarios.Rol;
+import com.duoc.backend.Usuarios.Usuarios.EstadoCuenta;
 import com.duoc.backend.Usuarios.UsuariosRepository;
 import com.duoc.backend.Usuarios.UsuariosService;
 
@@ -36,9 +38,9 @@ class BackendApplicationTests {
         usuario.setCorreo("juan@test.com");
         usuario.setPassword("123456");
         usuario.setTelefono("123456789");
-        usuario.setRol("dueño");
+        usuario.setRol(Rol.DUENO);
         usuario.setFecha_registro(LocalDate.now());
-        usuario.setEstado_cuenta("activo");
+        usuario.setEstadoCuenta(EstadoCuenta.ACTIVO);
 
         //  Mock guardado en DB
         when(usuariosRepository.save(any(Usuarios.class)))
@@ -50,7 +52,7 @@ class BackendApplicationTests {
         //  Validaciones
         assertNotNull(resultado);
         assertEquals("Juan Perez", resultado.getNombre());
-        assertEquals("activo", resultado.getEstado_cuenta());
+        assertEquals("activo", resultado.getEstadoCuenta());
 
         //  Verificar interacción
         verify(usuariosRepository, times(1)).save(any(Usuarios.class));

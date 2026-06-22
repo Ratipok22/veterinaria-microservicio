@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Ubicacion {
@@ -14,14 +16,19 @@ public class Ubicacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_ubicacion;
 
-    @Column(name = "id_reporte", nullable = false)
+    @Column(name = "idReporte", nullable = false)
+    @NotBlank(message = "El id del Reporte no puede estar vacío")
     private Long idReporte;
 
     private Double latitud;
     private Double longitud;
 
+    @NotNull
+    @NotBlank(message = "La direccion no puede estar vacía")
     private String direccion;
 
+    @NotNull
+    @NotBlank(message = "La fecha no puede estar vacía")
     private LocalDate fecha;
 
     public Long getId_ubicacion() {

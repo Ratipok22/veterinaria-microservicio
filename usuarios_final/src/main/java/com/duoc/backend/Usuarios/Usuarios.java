@@ -4,10 +4,16 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 
 @Entity
 @Table(name = "usuarios")
@@ -18,23 +24,33 @@ public class Usuarios {
     private Long id_usuario;
 
     @Column(nullable = false)
+    @NotBlank(message = "El nombre no puede estar vacío")
     private String nombre;
 
     @Column(unique = true, nullable = false)
+    @Email(message = "Debe ingresar un correo electrónico válido")
+    @NotBlank(message = "El correo no puede estar vacío")
     private String correo;
 
     @Column(nullable = false)
-    private String password; // cambiar por "contraseña"
+    @NotBlank(message = "La contraseña no puede estar vacía")
+    private String password; 
 
     private String telefono;
 
-    @Column(nullable = false)
-    private String rol; // dueño, voluntario, veterinaria
+    public enum Rol {DUENO,VOLUNTARIO,VETERINARIA}; 
 
     private LocalDate fecha_registro;
 
-    @Column(nullable = false)
-    private String estado_cuenta; // activo, inactivo
+    public enum EstadoCuenta {ACTIVO,INACTIVO};
+ 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Rol rol;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private EstadoCuenta estadoCuenta;
 
     public Usuarios() {}
 
@@ -78,11 +94,11 @@ public class Usuarios {
         this.telefono = telefono;
     }
 
-    public String getRol() {
+    public Rol getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(Rol rol) {
         this.rol = rol;
     }
 
@@ -94,11 +110,11 @@ public class Usuarios {
         this.fecha_registro = fecha_registro;
     }
 
-    public String getEstado_cuenta() {
-        return estado_cuenta;
+    public EstadoCuenta getEstadoCuenta() {
+        return estadoCuenta;
     }
 
-    public void setEstado_cuenta(String estado_cuenta) {
-        this.estado_cuenta = estado_cuenta;
+    public void setEstadoCuenta(EstadoCuenta estadoCuenta) {
+        this.estadoCuenta = estadoCuenta;
     }
 }

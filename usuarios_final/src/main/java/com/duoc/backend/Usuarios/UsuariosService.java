@@ -40,7 +40,7 @@ public class UsuariosService {
         existente.setTelefono(usuarioActualizado.getTelefono());
         existente.setRol(usuarioActualizado.getRol());
         existente.setFecha_registro(usuarioActualizado.getFecha_registro());
-        existente.setEstado_cuenta(usuarioActualizado.getEstado_cuenta());
+        existente.setEstadoCuenta(usuarioActualizado.getEstadoCuenta());
 
         return usuariosRepository.save(existente);
     }

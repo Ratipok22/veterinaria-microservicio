@@ -18,6 +18,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.client.RestTemplate;
 
 import com.duoc.backend.Notificaciones.Notificaciones;
+import com.duoc.backend.Notificaciones.Notificaciones.Estado;
+import com.duoc.backend.Notificaciones.Notificaciones.Tipo;
 import com.duoc.backend.Notificaciones.NotificacionesRepository;
 import com.duoc.backend.Notificaciones.NotificacionesService;
 
@@ -44,8 +46,8 @@ class BackendApplicationTests {
         Notificaciones notificacion = new Notificaciones();
         notificacion.setIdUsuario(1L);
         notificacion.setMensaje("Mascota encontrada");
-        notificacion.setTipo("alerta");
-        notificacion.setEstado("enviada");
+        notificacion.setTipo(Tipo.alerta);
+        notificacion.setEstado(Estado.enviada);
         notificacion.setFecha_envio(LocalDateTime.now());
 
         //  Mock DB

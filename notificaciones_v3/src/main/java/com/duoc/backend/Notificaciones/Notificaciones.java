@@ -4,10 +4,13 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "notificaciones")
@@ -17,14 +20,22 @@ public class Notificaciones {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_notificacion;
 
-    @Column(name = "id_usuario", nullable = false)
+    @Column(name = "idUsuario", nullable = false)
     private Long idUsuario;
 
     private String mensaje;
 
-    private String tipo; // alerta, coincidencia, info
+    public enum Tipo {alerta,coincidencia,info};
+    
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Tipo tipo;
 
-    private String estado; // enviada, leida
+    public enum Estado {enviada,leida};
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Estado estado;
 
     private LocalDateTime fecha_envio;
 
@@ -42,12 +53,12 @@ public class Notificaciones {
         return mensaje;
     }
 
-    public String getTipo() {
+    public Tipo getTipo() {
         return tipo;
     }
 
-    public String getEstado() {
-        return estado;
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
 
     public LocalDateTime getFecha_envio() {
@@ -66,15 +77,16 @@ public class Notificaciones {
         this.mensaje = mensaje;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
     public void setFecha_envio(LocalDateTime fecha_envio) {
         this.fecha_envio = fecha_envio;
     }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
 }

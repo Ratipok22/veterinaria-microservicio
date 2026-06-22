@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.duoc.backend.Difusion.Difusion;
+import com.duoc.backend.Difusion.Difusion.Estado;
 import com.duoc.backend.Difusion.DifusionRepository;
 
 @SpringBootTest
@@ -24,7 +25,7 @@ class BackendApplicationTests {
         Difusion difusion = new Difusion();
         difusion.setIdReporte(1L);
         difusion.setPlataforma("FACEBOOK");
-        difusion.setEstado("PENDIENTE");
+        difusion.setEstado(Estado.pendiente);
 
         Difusion guardado = difusionRepository.save(difusion);
 

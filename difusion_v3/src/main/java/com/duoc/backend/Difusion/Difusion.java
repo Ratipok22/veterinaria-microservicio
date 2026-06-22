@@ -4,10 +4,13 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "difusion")
@@ -15,20 +18,25 @@ public class Difusion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_difusion")
+    @Column(name = "idDifusion")
     private Long idDifusion;
 
-    @Column(name = "id_reporte", nullable = false)
+    @Column(name = "idReporte", nullable = false)
     private Long idReporte; //mascota
 
     private String plataforma;
-    private String estado; // publicado, pendiente, error
+
+    public enum Estado {publicado,pendiente,error};
 
     @Column(name = "url_publicacion")
     private String urlPublicacion;
 
     @Column(name = "fecha_publicacion")
     private LocalDateTime fechaPublicacion;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Estado estado;
 
     public Difusion() {}
 
@@ -44,7 +52,7 @@ public class Difusion {
         return plataforma;
     }
 
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
@@ -68,7 +76,7 @@ public class Difusion {
         this.plataforma = plataforma;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 

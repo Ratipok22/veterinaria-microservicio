@@ -1,7 +1,9 @@
-FROM mysql/mysql-server:latest
+FROM maven:3.9-eclipse-temurin-21 AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-ENV MYSQL_ROOT_PASSWORD=password 
-ENV MYSQL_DATABASE=mydatabase
-ENV MYSQL_USER=myuser 
-ENV MYSQL_PASSWORD=password 
-COPY ./create.sql /docker-entrypoint-initdb-d/
+FROM eclipse-temurin:21-jre
+COPY --from=build /app/target/*.jar app.jar
+ENTRYPOINT ["java","-jar","app.jar"]

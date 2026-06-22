@@ -4,9 +4,13 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Mascotas {
@@ -14,10 +18,18 @@ public class Mascotas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_reporte;
 
-    private String tipo_reporte; // perdido o encontrado
+    public enum Tipo_reporte {PERDIDO,ENCONTRADO};
+    
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Tipo_reporte tipo_reporte;
 
+    @NotBlank(message = "El tipo de mascota no puede estar vacío")
     private String tipo_mascota; // perro, gato, etc.
+
     private String raza;
+
+    @NotBlank(message = "El color de la mascota no puede estar vacío")
     private String color;
     private String tamaño;
 
@@ -25,21 +37,15 @@ public class Mascotas {
 
     private String foto_url;
 
-    private String estado; // activo, resuelto
-
     private LocalDate fecha_reporte;
 
-    @Column(name = "id_usuario", nullable = false)
+    @Column(name = "idUsuario", nullable = false)
     private Long idUsuario; 
 
     public Long getId_reporte() {
         return id_reporte;
     }
-
-    public String getTipo_reporte() {
-        return tipo_reporte;
-    }
-
+    
     public String getTipo_mascota() {
         return tipo_mascota;
     }
@@ -64,10 +70,6 @@ public class Mascotas {
         return foto_url;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
     public LocalDate getFecha_reporte() {
         return fecha_reporte;
     }
@@ -80,9 +82,6 @@ public class Mascotas {
         this.id_reporte = id_reporte;
     }
 
-    public void setTipo_reporte(String tipo_reporte) {
-        this.tipo_reporte = tipo_reporte;
-    }
 
     public void setTipo_mascota(String tipo_mascota) {
         this.tipo_mascota = tipo_mascota;
@@ -108,9 +107,6 @@ public class Mascotas {
         this.foto_url = foto_url;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
 
     public void setFecha_reporte(LocalDate fecha_reporte) {
         this.fecha_reporte = fecha_reporte;
@@ -120,5 +116,12 @@ public class Mascotas {
         this.idUsuario = idUsuario;
     }
 
+    public Tipo_reporte getTipo_reporte() {
+        return tipo_reporte;
+    }
+
+    public void setTipo_reporte(Tipo_reporte tipo_reporte) {
+        this.tipo_reporte = tipo_reporte;
+    }
 
 }

@@ -90,7 +90,6 @@ public class MascotasService {
         mascotaExistente.setTamaño(mascotaActualizada.getTamaño());
         mascotaExistente.setDescripcion(mascotaActualizada.getDescripcion());
         mascotaExistente.setFoto_url(mascotaActualizada.getFoto_url());
-        mascotaExistente.setEstado(mascotaActualizada.getEstado());
         mascotaExistente.setFecha_reporte(mascotaActualizada.getFecha_reporte());
         mascotaExistente.setIdUsuario(mascotaActualizada.getIdUsuario());
 

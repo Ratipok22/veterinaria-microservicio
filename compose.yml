@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+
+  mysql-usuario:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mysql-usuarios
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: password
+    ports:
+      - "3310:3306"
+    networks:
+      - ms-net
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  mysql-ubicacion:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mysql-ubicacion
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: password
+    ports:
+      - "3309:3306"
+    networks:
+      - ms-net
+    volumes:
+      - mysql_data:/var/lib/mysql    
+
+  mysql-notificaciones:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mysql-notificaciones
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: password
+    ports:
+      - "3308:3306"
+    networks:
+      - ms-net
+    volumes:
+      - mysql_data:/var/lib/mysql  
+
+  mysql-mascotas:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mysql-mascotas
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: password
+    ports:
+      - "3307:3306"
+    networks:
+      - ms-net
+    volumes:
+      - mysql_data:/var/lib/mysql  
+
+  mysql-difusion:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mysql-difusion
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    networks:
+      - ms-net
+    volumes:
+      - mysql_data:/var/lib/mysql 
+
+  ms-usuarios:
+    image: alexsander1234/ms-usuarios:latest
+    ports:
+      - "8180:8180"
+    networks:
+      - ms-net
+    depends_on:
+      - mysql-usuarios
+    deploy:
+      replicas: 3
+
+networks:
+  ms-net:
+    driver: overlay
+    attachable: true
+  
+
+volumes:
+  mysql_data:

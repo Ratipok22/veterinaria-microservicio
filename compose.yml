@@ -12,7 +12,7 @@ services:
     ports:
       - "3310:3306"
     networks:
-      - ms-net
+      - ms-network
     volumes:
       - mysql_data:/var/lib/mysql
 
@@ -20,17 +20,17 @@ services:
     image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: mysql-ubicacion
+      MYSQL_DATABASE: mysql-ubicaciones
       MYSQL_USER: myuser
       MYSQL_PASSWORD: password
     ports:
       - "3309:3306"
     networks:
-      - ms-net
+      - ms-network
     volumes:
       - mysql_data:/var/lib/mysql    
 
-  mysql-notificaciones:
+  mysql-notificacion:
     image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: password
@@ -40,11 +40,11 @@ services:
     ports:
       - "3308:3306"
     networks:
-      - ms-net
+      - ms-network
     volumes:
       - mysql_data:/var/lib/mysql  
 
-  mysql-mascotas:
+  mysql-mascota:
     image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: password
@@ -54,7 +54,7 @@ services:
     ports:
       - "3307:3306"
     networks:
-      - ms-net
+      - ms-network
     volumes:
       - mysql_data:/var/lib/mysql  
 
@@ -62,13 +62,13 @@ services:
     image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: mysql-difusion
+      MYSQL_DATABASE: mysql-difusiones
       MYSQL_USER: myuser
       MYSQL_PASSWORD: password
     ports:
       - "3306:3306"
     networks:
-      - ms-net
+      - ms-network
     volumes:
       - mysql_data:/var/lib/mysql 
 
@@ -79,7 +79,51 @@ services:
     networks:
       - ms-net
     depends_on:
-      - mysql-usuarios
+      - mysql-usuario
+    deploy:
+      replicas: 3
+
+  ms-ubicacion:
+    image: alexsander1234/ms-ubicacion:latest
+    ports:
+      - "8080:8180"
+    networks:
+      - ms-net
+    depends_on:
+      - mysql-ubicacion
+    deploy:
+      replicas: 3
+
+  ms-notificacion:
+    image: alexsander1234/ms-notificacion:latest
+    ports:
+      - "8182:8180"
+    networks:
+      - ms-net
+    depends_on:
+      - mysql-notificacion
+    deploy:
+      replicas: 3
+
+  ms-mascota:
+    image: alexsander1234/ms-mascota:latest
+    ports:
+      - "8183:8180"
+    networks:
+      - ms-net
+    depends_on:
+      - mysql-mascota
+    deploy:
+      replicas: 3
+
+  ms-difusion:
+    image: alexsander1234/ms-difusion:latest
+    ports:
+      - "8181:8180"
+    networks:
+      - ms-net
+    depends_on:
+      - mysql-difusion
     deploy:
       replicas: 3
 
@@ -87,7 +131,7 @@ networks:
   ms-net:
     driver: overlay
     attachable: true
-  
+  ms-network:
 
 volumes:
   mysql_data:

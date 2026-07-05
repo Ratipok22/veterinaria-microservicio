@@ -1,4 +1,4 @@
-name: Deploy ms-usuarios
+name: Deploy ms-difusion
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: usuarios_final
+        working-directory: difusion_v3
 
     steps:
       # Descargar el repositorio
@@ -33,13 +33,13 @@ jobs:
       - name: Deploy on EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.EC2_HOST }}
+          host: ${{ secrets.EC2_HOST_DIF }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
 
             echo "=== Descargando imagen ==="
-            sudo docker pull alexsander1234/ms-usuarios:latest
+            sudo docker pull alexsander1234/ms-difusion:latest
 
             echo "=== Creando red si no existe ==="
             sudo docker network inspect ms-network >/dev/null 2>&1 || \
@@ -47,28 +47,20 @@ jobs:
 
             echo "=== Verificando MySQL ==="
 
-            if [ "$(sudo docker ps -aq -f name=mysql-usuario)" ]; then
+            if [ "$(sudo docker ps -aq -f name=mysql-difusion)" ]; then
 
               echo "MySQL existe"
 
-              if [ -z "$(sudo docker ps -q -f name=mysql-usuario)" ]; then
+              if [ -z "$(sudo docker ps -q -f name=mysql-difusion)" ]; then
                 echo "Iniciando MySQL..."
-                sudo docker start mysql-usuario
+                sudo docker start mysql-difusion
               fi
 
             else
 
               echo "Creando MySQL..."
 
-              sudo docker run -d \
-                --name mysql-usuario \
-                --network ms-network \
-                -e MYSQL_ROOT_PASSWORD=password \
-                -e MYSQL_DATABASE=mysql-usuarios \
-                -e MYSQL_USER=myuser \
-                -e MYSQL_PASSWORD=password \
-                -p 3310:3306 \
-                mysql:8
+              sudo docker run -d --name mysql-difusion --network ms-network -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=mysql-difusiones -e MYSQL_USER=myuser -e MYSQL_PASSWORD=password -p 3306:3306 mysql:8
 
             fi
 
@@ -77,15 +69,15 @@ jobs:
 
             echo "=== Verificando usuario de prueba ==="
 
-            EXISTE=$(sudo docker exec mysql-usuario mysql -umyuser -ppassword -N -s \
-            -e "USE \`mysql-usuarios\`; SELECT COUNT(*) FROM user WHERE id=1;")
+            EXISTE=$(sudo docker exec mysql-difusion mysql -umyuser -ppassword -N -s \
+            -e "USE \`mysql-difusiones\`; SELECT COUNT(*) FROM user WHERE id=1;")
 
             if [ "$EXISTE" = "0" ]; then
 
               echo "Insertando usuario..."
 
-              sudo docker exec mysql-usuario mysql -umyuser -ppassword -e "
-              USE \`mysql-usuarios\`;
+              sudo docker exec mysql-difusion mysql -umyuser -ppassword -e "
+              USE \`mysql-difusiones\`;
               INSERT INTO user(id,email,password,username)
               VALUES (1,'test@mail.cl','1234','test');
               "
@@ -98,13 +90,9 @@ jobs:
 
             echo "=== Reiniciando microservicio ==="
 
-            sudo docker rm -f ms-usuarios || true
+            sudo docker rm -f ms-difusion || true
 
-            sudo docker run -d \
-              --name ms-usuarios \
-              --network ms-network \
-              -p 8180:8180 \
-              alexsander1234/ms-usuarios:latest
+            sudo docker run -d --name ms-difusion --network ms-network -p 8181:8180 alexsander1234/ms-difusion:latest
 
             echo "Esperando inicio del microservicio..."
             sleep 20

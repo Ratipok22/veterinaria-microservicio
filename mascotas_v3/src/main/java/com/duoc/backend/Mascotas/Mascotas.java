@@ -39,7 +39,7 @@ public class Mascotas {
 
     private LocalDate fecha_reporte;
 
-    @Column(name = "idUsuario", nullable = false)
+    @Column(name = "idUsuario")
     private Long idUsuario; 
 
     public Long getId_reporte() {

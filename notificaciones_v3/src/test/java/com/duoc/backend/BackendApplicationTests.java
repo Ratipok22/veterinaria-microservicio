@@ -1,6 +1,6 @@
 package com.duoc.backend;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -17,52 +17,50 @@ import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.client.RestTemplate;
 
-import com.duoc.backend.Notificaciones.Notificaciones;
-import com.duoc.backend.Notificaciones.Notificaciones.Estado;
-import com.duoc.backend.Notificaciones.Notificaciones.Tipo;
-import com.duoc.backend.Notificaciones.NotificacionesRepository;
-import com.duoc.backend.Notificaciones.NotificacionesService;
+import com.duoc.backend.Ubicacion.Ubicacion;
+import com.duoc.backend.Ubicacion.UbicacionRepository;
+import com.duoc.backend.Ubicacion.UbicacionService;
 
 @ExtendWith(MockitoExtension.class)
 class BackendApplicationTests {
 
     @Mock
-    private NotificacionesRepository notificacionesRepository;
+    private UbicacionRepository ubicacionRepository;
 
     @Mock
     private RestTemplate restTemplate;
 
     @InjectMocks
-    private NotificacionesService notificacionesService;
+    private UbicacionService ubicacionService;
 
     @Test
-    void guardarNotificacionTest() {
+    void guardarUbicacionTest() {
 
-        // Mock microservicio usuarios
+        //  Mock microservicio mascotas
         when(restTemplate.getForObject(anyString(), eq(Object.class)))
                 .thenReturn(new Object());
 
-        // Crear objeto de prueba
-        Notificaciones notificacion = new Notificaciones();
-        notificacion.setIdUsuario(1L);
-        notificacion.setMensaje("Mascota encontrada");
-        notificacion.setTipo(Tipo.alerta);
-        notificacion.setEstado(Estado.enviada);
-        notificacion.setFecha_envio(LocalDateTime.now());
+        //  Crear objeto de prueba
+        Ubicacion ubicacion = new Ubicacion();
+        ubicacion.setIdReporte(1L);
+        ubicacion.setLatitud(-33.0458);
+        ubicacion.setLongitud(-71.6197);
+        ubicacion.setDireccion("Valparaíso");
+        ubicacion.setFecha(LocalDate.now());
 
-        //  Mock DB
-        when(notificacionesRepository.save(any(Notificaciones.class)))
-                .thenReturn(notificacion);
+        //  Mock guardado DB
+        when(ubicacionRepository.save(any(Ubicacion.class)))
+                .thenReturn(ubicacion);
 
         //  Ejecutar
-        Notificaciones resultado = notificacionesService.guardarNotificacion(notificacion);
+        Ubicacion resultado = ubicacionService.guardarUbicacion(ubicacion);
 
-        // Validaciones
+        //  Validaciones
         assertNotNull(resultado);
-        assertEquals("alerta", resultado.getTipo());
+        assertEquals("Valparaíso", resultado.getDireccion());
 
         //  Verificaciones
-        verify(notificacionesRepository, times(1)).save(any(Notificaciones.class));
+        verify(ubicacionRepository, times(1)).save(any(Ubicacion.class));
         verify(restTemplate, times(1)).getForObject(anyString(), eq(Object.class));
     }
 }

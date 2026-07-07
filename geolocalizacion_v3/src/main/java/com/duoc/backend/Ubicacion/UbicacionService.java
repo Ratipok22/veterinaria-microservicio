@@ -29,7 +29,7 @@ public class UbicacionService {
     // Guardar (validando mascota)
     public Ubicacion guardarUbicacion(Ubicacion ubicacion) {
 
-        String url = "http://localhost:8080/mascotas/" + ubicacion.getIdReporte();
+        String url = "http://172.31.15.253:8183/mascotas/" + ubicacion.getIdReporte();
 
         try {
             ResponseEntity<Object> response = restTemplate.getForEntity(url, Object.class);
@@ -69,7 +69,7 @@ public class UbicacionService {
             throw new RuntimeException("El idReporte es obligatorio");
         }
 
-        String MASCOTAS_URL = "http://localhost:8081/mascotas/" + ubicacionActualizada.getIdReporte();
+        String MASCOTAS_URL = "http://172.31.15.253:8183/mascotas/" + ubicacionActualizada.getIdReporte();
 
         try {
             ResponseEntity<Object> response = restTemplate.getForEntity(MASCOTAS_URL, Object.class);

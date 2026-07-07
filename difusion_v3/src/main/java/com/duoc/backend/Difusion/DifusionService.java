@@ -30,7 +30,7 @@ public class DifusionService {
             throw new RuntimeException("El idReporte es obligatorio");
         }
 
-        String url = "http://localhost:8080/mascotas/" + difusion.getIdReporte();
+        String url = "http://172.31.15.253:8183/mascotas/" + difusion.getIdReporte();
 
         try {
             ResponseEntity<Object> response = restTemplate.getForEntity(url, Object.class);
@@ -72,7 +72,7 @@ public class DifusionService {
         }
 
         // 3. Validar que la mascota exista (microservicio mascotas)
-        String url = "http://localhost:8080/mascotas/" + difusion.getIdReporte();
+        String url = "http://172.31.15.253:8183/mascotas/" + difusion.getIdReporte();
 
         try {
             ResponseEntity<Object> response = restTemplate.getForEntity(url, Object.class);

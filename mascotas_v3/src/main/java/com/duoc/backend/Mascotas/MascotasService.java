@@ -30,7 +30,7 @@ public class MascotasService {
             throw new RuntimeException("El idUsuario es obligatorio");
         }
 
-        String USUARIOS_URL = "http://localhost:8180/usuarios/" + mascota.getIdUsuario();
+        String USUARIOS_URL = "http://172.31.95.218:8180/usuarios/" + mascota.getIdUsuario();
 
         try {
             ResponseEntity<Object> response = restTemplate.getForEntity(USUARIOS_URL, Object.class);
@@ -67,7 +67,7 @@ public class MascotasService {
             throw new RuntimeException("El idUsuario es obligatorio");
         }
 
-        String USUARIOS_URL = "http://localhost:8180/usuarios/" + mascotaActualizada.getIdUsuario();
+        String USUARIOS_URL = "http://172.31.95.218:8180/usuarios/" + mascotaActualizada.getIdUsuario();
 
         try {
             ResponseEntity<Object> response = restTemplate.getForEntity(USUARIOS_URL, Object.class);

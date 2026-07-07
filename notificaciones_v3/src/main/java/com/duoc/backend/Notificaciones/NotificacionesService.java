@@ -26,7 +26,7 @@ public class NotificacionesService {
 
     public Notificaciones guardarNotificacion(Notificaciones notificacion) {
 
-        String USUARIOS_URL = "http://localhost:8180/usuarios/" + notificacion.getIdUsuario();
+        String USUARIOS_URL = "http://172.31.95.218:8180/usuarios/" + notificacion.getIdUsuario();
 
         //  Validación obligatoria
         if (notificacion.getIdUsuario() == null) {
@@ -68,7 +68,7 @@ public class NotificacionesService {
             throw new RuntimeException("El idUsuario es obligatorio");
         }
 
-        String USUARIOS_URL = "http://localhost:8180/usuarios/" + notificacionActualizada.getIdUsuario();
+        String USUARIOS_URL = "http://172.31.95.218:8180/usuarios/" + notificacionActualizada.getIdUsuario();
 
         try {
             ResponseEntity<Object> response = restTemplate.getForEntity(USUARIOS_URL, Object.class);
